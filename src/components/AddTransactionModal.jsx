@@ -1,19 +1,16 @@
-import { X } from 'lucide-react';
 import { useState } from 'react';
+import { X } from 'lucide-react';
 import { useFinance } from '../context/FinanceContext';
 
-interface AddTransactionModalProps {
-  onClose: () => void;
-}
-
-export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
+const AddTransactionModal = ({ onClose }) => {
   const { addTransaction } = useFinance();
+
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split('T')[0],
     amount: '',
     category: '',
-    type: 'expense' as 'income' | 'expense',
-    description: ''
+    type: 'expense',
+    description: '',
   });
 
   const categories = {
@@ -27,11 +24,11 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
       'Healthcare',
       'Shopping',
       'Dining',
-      'Other'
-    ]
+      'Other',
+    ],
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.amount || !formData.category) return;
 
@@ -40,7 +37,7 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
       amount: parseFloat(formData.amount),
       category: formData.category,
       type: formData.type,
-      description: formData.description || `${formData.category} transaction`
+      description: formData.description || `${formData.category} transaction`,
     });
 
     onClose();
@@ -49,6 +46,7 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl max-w-md w-full p-6">
+        {/* Modal Header */}
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-bold text-gray-900">Add Transaction</h3>
           <button
@@ -60,6 +58,7 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Type */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Type</label>
             <div className="flex gap-4">
@@ -68,8 +67,8 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
                   type="radio"
                   value="income"
                   checked={formData.type === 'income'}
-                  onChange={e =>
-                    setFormData({ ...formData, type: e.target.value as 'income', category: '' })
+                  onChange={(e) =>
+                    setFormData({ ...formData, type: e.target.value, category: '' })
                   }
                   className="w-4 h-4 text-blue-600"
                 />
@@ -80,8 +79,8 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
                   type="radio"
                   value="expense"
                   checked={formData.type === 'expense'}
-                  onChange={e =>
-                    setFormData({ ...formData, type: e.target.value as 'expense', category: '' })
+                  onChange={(e) =>
+                    setFormData({ ...formData, type: e.target.value, category: '' })
                   }
                   className="w-4 h-4 text-blue-600"
                 />
@@ -90,27 +89,29 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
             </div>
           </div>
 
+          {/* Date */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
             <input
               type="date"
               value={formData.date}
-              onChange={e => setFormData({ ...formData, date: e.target.value })}
+              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               required
             />
           </div>
 
+          {/* Category */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
             <select
               value={formData.category}
-              onChange={e => setFormData({ ...formData, category: e.target.value })}
+              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               required
             >
               <option value="">Select a category</option>
-              {categories[formData.type].map(cat => (
+              {categories[formData.type].map((cat) => (
                 <option key={cat} value={cat}>
                   {cat}
                 </option>
@@ -118,6 +119,7 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
             </select>
           </div>
 
+          {/* Amount */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Amount</label>
             <div className="relative">
@@ -129,7 +131,7 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
                 step="0.01"
                 min="0"
                 value={formData.amount}
-                onChange={e => setFormData({ ...formData, amount: e.target.value })}
+                onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
                 className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="0.00"
                 required
@@ -137,6 +139,7 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
             </div>
           </div>
 
+          {/* Description */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Description (Optional)
@@ -144,12 +147,13 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
             <input
               type="text"
               value={formData.description}
-              onChange={e => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Enter description"
             />
           </div>
 
+          {/* Buttons */}
           <div className="flex gap-3 pt-4">
             <button
               type="button"
@@ -170,3 +174,5 @@ export const AddTransactionModal = ({ onClose }: AddTransactionModalProps) => {
     </div>
   );
 };
+
+export default AddTransactionModal;

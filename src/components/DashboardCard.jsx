@@ -1,24 +1,5 @@
-import { Video as LucideIcon } from 'lucide-react';
-
-interface DashboardCardProps {
-  title: string;
-  value: string;
-  icon: LucideIcon;
-  trend?: string;
-  trendUp?: boolean;
-  bgColor: string;
-  iconColor: string;
-}
-
-export const DashboardCard = ({
-  title,
-  value,
-  icon: Icon,
-  trend,
-  trendUp,
-  bgColor,
-  iconColor
-}: DashboardCardProps) => {
+// A single summary card — shows title, value, optional trend
+const DashboardCard = ({ title, value, icon: Icon, trend, trendUp, bgColor, iconColor }) => {
   return (
     <div className={`${bgColor} rounded-xl p-6 shadow-sm border border-gray-200`}>
       <div className="flex items-center justify-between">
@@ -38,3 +19,5 @@ export const DashboardCard = ({
     </div>
   );
 };
+
+export default DashboardCard;

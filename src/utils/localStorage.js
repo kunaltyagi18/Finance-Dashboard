@@ -1,11 +1,9 @@
-import { Transaction, UserRole } from '../types/finance';
-
 const STORAGE_KEYS = {
   TRANSACTIONS: 'finance-dashboard-transactions',
-  USER_ROLE: 'finance-dashboard-role'
+  USER_ROLE: 'finance-dashboard-role',
 };
 
-export const loadTransactions = (): Transaction[] | null => {
+export const loadTransactions = () => {
   try {
     const data = localStorage.getItem(STORAGE_KEYS.TRANSACTIONS);
     return data ? JSON.parse(data) : null;
@@ -14,7 +12,7 @@ export const loadTransactions = (): Transaction[] | null => {
   }
 };
 
-export const saveTransactions = (transactions: Transaction[]): void => {
+export const saveTransactions = (transactions) => {
   try {
     localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(transactions));
   } catch (error) {
@@ -22,16 +20,16 @@ export const saveTransactions = (transactions: Transaction[]): void => {
   }
 };
 
-export const loadUserRole = (): UserRole => {
+export const loadUserRole = () => {
   try {
     const role = localStorage.getItem(STORAGE_KEYS.USER_ROLE);
-    return (role as UserRole) || 'viewer';
+    return role || 'viewer';
   } catch {
     return 'viewer';
   }
 };
 
-export const saveUserRole = (role: UserRole): void => {
+export const saveUserRole = (role) => {
   try {
     localStorage.setItem(STORAGE_KEYS.USER_ROLE, role);
   } catch (error) {

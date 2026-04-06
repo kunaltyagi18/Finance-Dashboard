@@ -1,12 +1,11 @@
-import { Transaction } from '../types/finance';
-
-export const generateMockTransactions = (): Transaction[] => {
+// Generates 50 fake transactions for demo purposes
+export const generateMockTransactions = () => {
   const categories = {
     income: ['Salary', 'Freelance', 'Investments', 'Bonus'],
-    expense: ['Groceries', 'Rent', 'Utilities', 'Entertainment', 'Transportation', 'Healthcare', 'Shopping', 'Dining']
+    expense: ['Groceries', 'Rent', 'Utilities', 'Entertainment', 'Transportation', 'Healthcare', 'Shopping', 'Dining'],
   };
 
-  const transactions: Transaction[] = [];
+  const transactions = [];
   const today = new Date();
 
   for (let i = 0; i < 50; i++) {
@@ -27,9 +26,9 @@ export const generateMockTransactions = (): Transaction[] => {
         : Math.floor(Math.random() * 500) + 10,
       category,
       type,
-      description: `${category} transaction`
+      description: `${category} transaction`,
     });
   }
 
-  return transactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
 };

@@ -1,7 +1,7 @@
-import { useFinance } from '../context/FinanceContext';
 import { useMemo } from 'react';
+import { useFinance } from '../context/FinanceContext';
 
-export const LineChart = () => {
+const LineChart = () => {
   const { transactions } = useFinance();
 
   const chartData = useMemo(() => {
@@ -11,26 +11,24 @@ export const LineChart = () => {
       return date;
     }).reverse();
 
-    return last7Months.map(date => {
+    return last7Months.map((date) => {
       const monthStr = date.toISOString().slice(0, 7);
       const income = transactions
-        .filter(t => t.type === 'income' && t.date.startsWith(monthStr))
+        .filter((t) => t.type === 'income' && t.date.startsWith(monthStr))
         .reduce((sum, t) => sum + t.amount, 0);
       const expenses = transactions
-        .filter(t => t.type === 'expense' && t.date.startsWith(monthStr))
+        .filter((t) => t.type === 'expense' && t.date.startsWith(monthStr))
         .reduce((sum, t) => sum + t.amount, 0);
 
       return {
         month: date.toLocaleDateString('en-US', { month: 'short' }),
         income,
-        expenses
+        expenses,
       };
     });
   }, [transactions]);
 
-  const maxValue = Math.max(
-    ...chartData.flatMap(d => [d.income, d.expenses])
-  );
+  const maxValue = Math.max(...chartData.flatMap((d) => [d.income, d.expenses]));
 
   return (
     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
@@ -43,12 +41,12 @@ export const LineChart = () => {
               <div className="flex-1 mx-4 flex gap-1">
                 <div
                   className="bg-green-500 h-8 rounded transition-all"
-                  style={{ width: `${(data.income / maxValue) * 100}%` }}
+                  style={{ width: `${maxValue ? (data.income / maxValue) * 100 : 0}%` }}
                   title={`Income: $${data.income.toLocaleString()}`}
                 />
                 <div
                   className="bg-red-500 h-8 rounded transition-all"
-                  style={{ width: `${(data.expenses / maxValue) * 100}%` }}
+                  style={{ width: `${maxValue ? (data.expenses / maxValue) * 100 : 0}%` }}
                   title={`Expenses: $${data.expenses.toLocaleString()}`}
                 />
               </div>
@@ -72,3 +70,5 @@ export const LineChart = () => {
     </div>
   );
 };
+
+export default LineChart;

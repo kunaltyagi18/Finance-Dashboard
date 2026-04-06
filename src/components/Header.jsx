@@ -1,6 +1,6 @@
-import { RoleToggle } from './RoleToggle';
+import RoleToggle from './RoleToggle';
 
-export const Header = () => {
+const Header = () => {
   return (
     <header className="bg-white border-b border-gray-200 px-6 py-4">
       <div className="flex items-center justify-between">
@@ -10,3 +10,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;

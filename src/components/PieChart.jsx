@@ -1,15 +1,15 @@
-import { useFinance } from '../context/FinanceContext';
 import { useMemo } from 'react';
+import { useFinance } from '../context/FinanceContext';
 
-export const PieChart = () => {
+const PieChart = () => {
   const { transactions } = useFinance();
 
   const categoryData = useMemo(() => {
-    const expenses = transactions.filter(t => t.type === 'expense');
+    const expenses = transactions.filter((t) => t.type === 'expense');
     const categoryTotals = expenses.reduce((acc, t) => {
       acc[t.category] = (acc[t.category] || 0) + t.amount;
       return acc;
-    }, {} as Record<string, number>);
+    }, {});
 
     const total = Object.values(categoryTotals).reduce((sum, val) => sum + val, 0);
 
@@ -17,7 +17,7 @@ export const PieChart = () => {
       .map(([category, amount]) => ({
         category,
         amount,
-        percentage: (amount / total) * 100
+        percentage: (amount / total) * 100,
       }))
       .sort((a, b) => b.amount - a.amount)
       .slice(0, 6);
@@ -29,7 +29,7 @@ export const PieChart = () => {
     'bg-pink-500',
     'bg-orange-500',
     'bg-teal-500',
-    'bg-cyan-500'
+    'bg-cyan-500',
   ];
 
   return (
@@ -68,3 +68,5 @@ export const PieChart = () => {
     </div>
   );
 };
+
+export default PieChart;

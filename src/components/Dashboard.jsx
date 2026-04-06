@@ -1,10 +1,10 @@
 import { Wallet, TrendingUp, TrendingDown } from 'lucide-react';
-import { DashboardCard } from './DashboardCard';
-import { LineChart } from './LineChart';
-import { PieChart } from './PieChart';
 import { useFinance } from '../context/FinanceContext';
+import DashboardCard from './DashboardCard';
+import LineChart from './LineChart';
+import PieChart from './PieChart';
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const { stats } = useFinance();
 
   return (
@@ -47,3 +47,5 @@ export const Dashboard = () => {
     </div>
   );
 };
+
+export default Dashboard;

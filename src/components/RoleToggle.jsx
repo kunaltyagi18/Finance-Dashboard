@@ -1,7 +1,7 @@
 import { Shield, Eye } from 'lucide-react';
 import { useFinance } from '../context/FinanceContext';
 
-export const RoleToggle = () => {
+const RoleToggle = () => {
   const { userRole, setUserRole } = useFinance();
 
   return (
@@ -32,3 +32,5 @@ export const RoleToggle = () => {
     </div>
   );
 };
+
+export default RoleToggle;

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { FinanceProvider } from './context/FinanceContext';
-import { Sidebar } from './components/Sidebar';
-import { Header } from './components/Header';
-import { Dashboard } from './components/Dashboard';
-import { TransactionTable } from './components/TransactionTable';
-import { Insights } from './components/Insights';
+import Sidebar from './components/Sidebar';
+import Header from './components/Header';
+import Dashboard from './components/Dashboard';
+import TransactionTable from './components/TransactionTable';
+import Insights from './components/Insights';
 
 function App() {
   const [currentView, setCurrentView] = useState('dashboard');
